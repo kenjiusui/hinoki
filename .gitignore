@@ -30,3 +30,8 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+dist/
+
+# hinoki local config (per-project publication rkey) and sync state
+hinoki.yaml
+.hinoki-state.json
