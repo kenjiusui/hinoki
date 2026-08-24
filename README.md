@@ -1,6 +1,6 @@
 # hinoki
 
-Hugo で書いた記事を [standard.site](https://standard.site/) のレコード（AT Protocol の `site.standard.publication` / `site.standard.document`）として、あなたの PDS（Personal Data Server、例: bsky.social）に同期する CLI ツール。
+Hugo で書いた記事を [standard.site](https://standard.site/) のレコード（AT Protocol の `site.standard.publication` / `site.standard.document`）としてあなたの PDS（Personal Data Server、例: bsky.social）に同期する CLI ツール。
 
 standard.site は AT Protocol 上で長文コンテンツを公開するための共有スキーマです。記事はあなたの PDS 上のレコードとして保存され、対応するインデクサー／アプリから発見・購読できるようになります。
 
@@ -28,7 +28,7 @@ hinoki init
 
 対話形式で Bluesky ハンドルや `content/` ディレクトリなどを入力すると `hinoki.yaml` が作成されます（詳細は [設定](#設定-hinokiyaml) 参照）。
 
-Bluesky の 設定 → アプリパスワード でアプリパスワードを発行し、環境変数に設定してから同期します。
+Bluesky の 設定 → アプリパスワード でアプリパスワードを発行し環境変数に設定してから同期します。
 
 ```
 export HINOKI_APP_PASSWORD=xxxx-xxxx-xxxx-xxxx
@@ -45,17 +45,19 @@ hinoki sync
 
 ### `hinoki sync`
 
-`content/` 以下の Markdown 記事を走査し、`site.standard.document` レコードとして PDS に作成・更新・削除します。初回実行時に `site.standard.publication` レコードも自動作成され、その rkey が `hinoki.yaml` に保存されます。
+`content/` 以下の Markdown 記事を走査し`site.standard.document` レコードとして PDS に作成・更新・削除します。初回実行時に `site.standard.publication` レコードも自動作成され、その rkey が `hinoki.yaml` に保存されます。
 
 - **作成・更新**: 記事の内容ハッシュを `.hinoki-state.json` に保持し、前回から変更があった記事だけを送信します。
-- **削除**: 以前に同期済みだった記事が `content/` から見つからなくなった場合（ファイル削除、`exclude_dirs` / `exclude_files` への追加など）、対応する PDS 上のレコードも自動的に削除します。
+- **削除**: 以前に同期済みだった記事が `content/` から見つからなくなった場合（ファイル削除`exclude_dirs` / `exclude_files` への追加など）対応する PDS 上のレコードも自動的に削除します。
 - **スキップ**: `draft: true` の記事はデフォルトで同期されません（`include_drafts: true` で含められます）。
 
 ### `hinoki sync --force`
 
-内容の変更有無に関わらず、全記事を強制的に再送信します。`hinoki` 自体をアップデートして PDS へのマッピング内容（保存するフィールドなど）が変わった場合、記事のソース側は変わっていないため通常の `sync` では再送信されません。そのようなときに使います。
+内容の変更有無に関わらず全記事を強制的に再送信します。`hinoki` 自体をアップデートして PDS へのマッピング内容（保存するフィールドなど）が変わった場合、記事のソース側は変わっていないため通常の `sync` では再送信されません。そのようなときに使います。
 
 ## 設定 (`hinoki.yaml`)
+
+設定例は [hinoki.example.yaml](hinoki.example.yaml) を参照してください。
 
 | キー | 必須 | 説明 |
 |---|---|---|
@@ -94,10 +96,10 @@ YAML (`---`) / TOML (`+++`) 形式に対応。`_index.md`（Hugo のセクショ
 | `description` / `summary` | `description` |
 | `tags` / `categories` | `tags` |
 | `slug`（無ければファイルパスから自動生成） | `path` |
-| 本文（Markdown 生テキスト） | `textContent`、および [at.markpub.markdown](https://markpub.at/) 形式で `content` |
+| 本文（Markdown 生テキスト） | `textContent`および [at.markpub.markdown](https://markpub.at/) 形式で `content` |
 
 `content` フィールドは standard.site 対応のビューアがリッチな整形表示に対応している場合に使われます。
 
 ## 注意事項
 
-- アプリパスワードは `hinoki.yaml` には保存されません（環境変数か対話入力のみで扱います）。`hinoki.yaml` 自体は publication の rkey などを含むため引き続き `.gitignore` 済みですが、機密情報は含みません。
+- アプリパスワードは `hinoki.yaml` には保存されません（環境変数か対話入力のみで扱います）。`hinoki.yaml` 自体は publication の rkey などを含むため `.gitignore` 済みですが機密情報は含みません。

@@ -1,0 +1,44 @@
+# hinoki.example.yaml
+#
+# hinoki init が生成するのと同じ形式の設定ファイルのサンプルです。
+# 実際に使う場合は hinoki.yaml という名前でプロジェクトのルート
+# （content/ がある場所）に置いてください。アプリパスワードはこの
+# ファイルには書きません（HINOKI_APP_PASSWORD 環境変数、または
+# `hinoki sync` 実行時の対話プロンプトで入力します）。
+
+# Bluesky のハンドル（必須）
+handle: kenji.bsky.social
+
+# PDS の URL。省略時は https://bsky.social
+pds: https://bsky.social
+
+# Hugo の content ディレクトリ。省略時は content
+content_dir: content
+
+# 公開先サイトのベース URL（必須）
+site_url: https://kenji.example.com
+
+# サイト名（必須）
+site_name: Kenji's Blog
+
+# サイトの説明（任意）
+site_description: 日々のメモと技術記事
+
+# draft: true の記事も同期対象にする場合は true（省略時は false）
+include_drafts: false
+
+# content/ からの相対パスで、再帰的に同期対象から除外するディレクトリ（任意）
+exclude_dirs:
+  - docs
+  - books
+
+# 同期対象から除外するファイル名のグロブパターン（任意）
+# ベース名、または content/ からの相対パスのどちらかにマッチすれば除外されます
+exclude_files:
+  - about.md
+  - privacy.md
+  - "_draft-*.md"
+
+# site.standard.publication レコードの rkey。
+# 初回 `hinoki sync` 実行時に自動的に設定されるので、通常は手で書く必要はありません。
+# publication_rkey: 3mtsvroigazyy

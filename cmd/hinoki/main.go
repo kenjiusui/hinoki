@@ -83,7 +83,7 @@ func cmdInit() error {
 		return line
 	}
 
-	handle := prompt("Bluesky handle (e.g. alice.bsky.social)", "")
+	handle := prompt("Bluesky handle (e.g. kenji.bsky.social)", "")
 	pds := prompt("PDS URL", "https://bsky.social")
 	contentDir := prompt("Hugo content directory", "content")
 	siteURL := prompt("Published site base URL (e.g. https://example.com)", "")
