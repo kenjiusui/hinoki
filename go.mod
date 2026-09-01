@@ -1,4 +1,4 @@
-module github.com/harutsugegusa/hinoki
+module github.com/kenjiusui/hinoki
 
 go 1.27.0
 
