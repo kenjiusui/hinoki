@@ -100,6 +100,17 @@ YAML (`---`) / TOML (`+++`) 形式に対応。`_index.md`（Hugo のセクショ
 
 `content` フィールドは standard.site 対応のビューアがリッチな整形表示に対応している場合に使われます。
 
+## GitHub Actions での自動同期
+
+ブログを更新して `main` ブランチへ push（≒リリース）するたびに `hinoki sync` を自動実行できます。
+
+1. [`examples/github-actions/hinoki-sync.yml`](examples/github-actions/hinoki-sync.yml) を、Hugoプロジェクトの `.github/workflows/hinoki-sync.yml` としてコピーする
+2. Bluesky の 設定 → アプリパスワード でアプリパスワードを発行し、リポジトリの **Settings → Secrets and variables → Actions** に `HINOKI_APP_PASSWORD` として登録する
+3. `hinoki init` で作成した `hinoki.yaml` をリポジトリにコミットする（`publication_rkey` などアプリパスワード以外の機密情報は含まれないため、コミットして問題ない）
+4. 一度でもローカルで `hinoki sync` を実行したことがある場合は、`.hinoki-state.json` も一緒にコミットする（無い場合は初回CI実行時に自動生成される）
+
+CI実行後に更新された `hinoki.yaml` / `.hinoki-state.json` は、ワークフローが自動でリポジトリにコミットし直すので、次回以降は差分だけが同期されます。
+
 ## 注意事項
 
-- アプリパスワードは `hinoki.yaml` には保存されません（環境変数か対話入力のみで扱います）。`hinoki.yaml` 自体は publication の rkey などを含むため `.gitignore` 済みですが機密情報は含みません。
+- アプリパスワードは `hinoki.yaml` には保存されません（環境変数か対話入力のみで扱います）。`hinoki.yaml` 自体は publication の rkey などを含むため `.gitignore` 済みですが機密情報は含みません。CIで永続化する場合は `.gitignore` から外してコミットしてください。
