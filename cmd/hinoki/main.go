@@ -13,11 +13,11 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/harutsugegusa/hinoki/internal/atproto"
-	"github.com/harutsugegusa/hinoki/internal/config"
-	"github.com/harutsugegusa/hinoki/internal/hugo"
-	"github.com/harutsugegusa/hinoki/internal/standardsite"
-	"github.com/harutsugegusa/hinoki/internal/state"
+	"github.com/kenjiusui/hinoki/internal/atproto"
+	"github.com/kenjiusui/hinoki/internal/config"
+	"github.com/kenjiusui/hinoki/internal/hugo"
+	"github.com/kenjiusui/hinoki/internal/standardsite"
+	"github.com/kenjiusui/hinoki/internal/state"
 )
 
 const (
